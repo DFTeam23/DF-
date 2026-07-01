@@ -1,72 +1,76 @@
-# DF-
+# Deep Focus
 
-You inspire, We create
+**You inspire, we create.**
 
-## Overview
+A focus-first task manager that complements Asana. Plan your work on an
+Asana-style board, then drop into a distraction-free **Focus Mode** that runs a
+Pomodoro timer and tracks focused time *per task* — so you can see not just what
+you did, but where your attention actually went.
 
-A modern frontend web application built with React and JavaScript. Fully accessible and cross-platform compatible (Windows, macOS, Linux).
+## Why Deep Focus
+
+Most task managers help you *plan*. Deep Focus helps you plan **and focus**.
+Every task has a one-click focus session, and the app quietly measures the time
+you spend concentrating on it. Use it standalone, or alongside Asana as your
+personal "heads-down" companion.
+
+## Features
+
+- **Kanban board** — projects with customizable sections (To Do / In Progress /
+  Done), drag-and-drop cards, priorities, due dates, and subtasks.
+- **List view** — sort by section, due date, or priority; hide completed tasks.
+- **Focus Mode** — a full-screen Pomodoro timer (adjustable length, auto
+  break, gentle chime) that logs focused time and session counts onto the task.
+- **Dashboard** — focus-time-today, daily streak, a 7-day focus chart, tasks
+  due today across all projects, and a "where your focus went" breakdown.
+- **Local-first** — everything is saved in your browser (localStorage); no
+  account, no server, nothing leaves your machine.
+- **Accessible** — keyboard navigation, focus traps in dialogs, visible focus
+  rings, ARIA labels, a skip-to-content link, and reduced-motion support.
 
 ## Tech Stack
 
 - **Framework:** React 18
-- **Language:** JavaScript (ES6+)
-- **Styling:** CSS / Tailwind CSS
-- **Build Tool:** Vite
-- **Package Manager:** npm
-- **Accessibility:** WCAG 2.1 AA compliant
+- **Build Tool:** Vite 5
+- **Styling:** Tailwind CSS 3 (dark, calm theme)
+- **State:** React Context + `useReducer`, persisted to localStorage
+- **Dependencies:** intentionally minimal — no UI/icon/date libraries
 
 ## Project Structure
 
 ```
 DF-/
-├── public/                 # Static assets
+├── public/
+│   └── favicon.svg
 ├── src/
-│   ├── components/        # Reusable React components
-│   ├── pages/            # Page components
-│   ├── hooks/            # Custom React hooks
-│   ├── utils/            # Utility functions
-│   ├── styles/           # Global styles
-│   ├── App.jsx           # Main App component
-│   └── main.jsx          # Entry point
-├── .gitignore
-├── package.json
-├── vite.config.js
-├── .eslintrc.cjs
+│   ├── components/          # Sidebar, Header, BoardView, ListView,
+│   │                        # TaskCard, TaskModal, FocusMode, Dashboard,
+│   │                        # Modal, icons
+│   ├── context/
+│   │   └── AppContext.jsx   # global store (reducer + persistence)
+│   ├── data/
+│   │   └── seed.js          # starter workspace
+│   ├── utils/
+│   │   └── helpers.js       # dates, formatting, priorities
+│   ├── App.jsx              # layout + view/modal orchestration
+│   ├── main.jsx             # entry point
+│   └── index.css            # Tailwind + base styles
 ├── index.html
-└── README.md
+├── tailwind.config.js
+├── vite.config.js
+├── postcss.config.js
+├── .eslintrc.cjs
+└── package.json
 ```
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 16+ ([Download](https://nodejs.org/))
-- npm (included with Node.js) or yarn
+- Node.js 18+ ([Download](https://nodejs.org/))
 
 ### Installation
 
-#### macOS
 ```bash
-# Using Homebrew (recommended)
-brew install node
-
-# Clone and setup
-git clone https://github.com/DFTeam23/DF-.git
-cd DF-
-npm install
-```
-
-#### Windows
-```bash
-# Download and install Node.js from nodejs.org
-# Then in Command Prompt or PowerShell:
-git clone https://github.com/DFTeam23/DF-.git
-cd DF-
-npm install
-```
-
-#### Linux
-```bash
-sudo apt-get install nodejs npm
 git clone https://github.com/DFTeam23/DF-.git
 cd DF-
 npm install
@@ -78,88 +82,44 @@ npm install
 npm run dev
 ```
 
-The application will automatically open at `http://localhost:5173`
+The app opens at `http://localhost:5173`.
 
 ### Build
 
 ```bash
-npm run build
-```
-
-Output will be in the `dist/` directory
-
-### Preview Production Build
-
-```bash
-npm run preview
+npm run build      # output in dist/
+npm run preview    # preview the production build
 ```
 
 ## Available Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server with hot reload |
+| `npm run dev` | Start the dev server with hot reload |
 | `npm run build` | Build for production |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run ESLint to check code quality |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
 
-## Accessibility Features
+## How to use it
 
-- ✅ Semantic HTML structure
-- ✅ ARIA labels and roles
-- ✅ Keyboard navigation support
-- ✅ Screen reader compatible
-- ✅ High contrast support
-- ✅ Focus indicators
-- ✅ Alt text for images
+1. **Create a project** from the sidebar (name + color).
+2. **Add tasks** to a section on the board; open a task to set priority, due
+   date, notes, and subtasks.
+3. **Drag** cards between sections as work progresses.
+4. Hit **Focus** on any task to start a session. Your focused minutes are saved
+   to that task.
+5. Check the **Dashboard** to see your streak, weekly focus, and where your
+   time went.
 
-## Cross-Platform Compatibility
+Keyboard shortcuts in Focus Mode: **Space** play/pause, **Esc** exit.
 
-This project is tested and compatible with:
-- ✅ **macOS** (10.15+)
-- ✅ **Windows** (10+)
-- ✅ **Linux** (Ubuntu 18.04+)
+## Roadmap ideas
 
-## Troubleshooting
-
-### macOS Specific Issues
-
-**M1/M2 Mac Issues:**
-If you encounter issues with native dependencies, try:
-```bash
-arch -arm64 npm install
-```
-
-**Port Already in Use:**
-```bash
-lsof -i :5173
-kill -9 <PID>
-```
-
-### Node Version Issues
-
-Use nvm (Node Version Manager) for better version management:
-```bash
-# Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
-# Install Node 20
-nvm install 20
-nvm use 20
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- Optional **Asana import** (pull your Asana tasks in to run focus sessions on
+  them, then push focused-time back as comments).
+- Ambient focus soundscapes.
+- Export / import of your data as JSON.
 
 ## License
 
-MIT License - See LICENSE file for details
-
-## Support
-
-For issues or questions, please create an [issue](https://github.com/DFTeam23/DF-/issues) on GitHub.
+MIT License
